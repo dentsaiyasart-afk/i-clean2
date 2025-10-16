@@ -131,7 +131,7 @@ wholesaleForm.addEventListener('submit', (e) => {
     
     // In production, you would send this data to your server
     // Example:
-     fetch('https://api-iclean.vercel.app/api/wholesale-inquiry', {
+     fetch('https://api-iclean-qec43stqo-subsomboon2169-9671s-projects.vercel.app/api/wholesale-inquiry', {
          method: 'POST',
          headers: { 'Content-Type': 'application/json' },
          body: JSON.stringify(data)
@@ -161,7 +161,7 @@ newsletterForms.forEach(form => {
         form.reset();
         
         // In production, send to server
-         fetch('https://api-iclean.vercel.app/api/newsletter-subscribe', {
+         fetch('https://api-iclean-qec43stqo-subsomboon2169-9671s-projects.vercel.app/api/newsletter-subscribe', {
              method: 'POST',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify({ email: email })
