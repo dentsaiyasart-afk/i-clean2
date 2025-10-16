@@ -131,18 +131,18 @@ wholesaleForm.addEventListener('submit', (e) => {
     
     // In production, you would send this data to your server
     // Example:
-    // fetch('/api/wholesale-inquiry', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(data)
-    // })
-    // .then(response => response.json())
-    // .then(result => {
-    //     console.log('Success:', result);
-    // })
-    // .catch(error => {
-    //     console.error('Error:', error);
-    // });
+     fetch('https://api-iclean.vercel.app/api/wholesale-inquiry', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(data)
+     })
+     .then(response => response.json())
+     .then(result => {
+         console.log('Success:', result);
+     })
+     .catch(error => {
+         console.error('Error:', error);
+     });
 });
 
 /* ========================================
@@ -161,11 +161,11 @@ newsletterForms.forEach(form => {
         form.reset();
         
         // In production, send to server
-        // fetch('/api/newsletter-subscribe', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ email: email })
-        // });
+         fetch('https://api-iclean.vercel.app/api/newsletter-subscribe', {
+             method: 'POST',
+             headers: { 'Content-Type': 'application/json' },
+             body: JSON.stringify({ email: email })
+         });
     });
 });
 
