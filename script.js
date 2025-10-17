@@ -453,7 +453,7 @@ console.log(
     'color: #F9DB6D; font-size: 14px; padding: 5px;'
 );
 console.log(
-    '%cสนใจร่วมเป็นตัวแทนจำหน่าย ติดต่อ: info@i-clean.co.th',
+    '%cสนใจร่วมเป็นตัวแทนจำหน่าย ติดต่อ: aongartfarm@gmail.com',
     'color: #5B9BD5; font-size: 12px; padding: 5px;'
 );
 
