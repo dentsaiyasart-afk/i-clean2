@@ -970,7 +970,7 @@ a:hover {
 
 .steps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 30px;
     margin-bottom: 40px;
 }
@@ -982,12 +982,6 @@ a:hover {
     text-align: center;
     position: relative;
     box-shadow: var(--shadow-sm);
-    transition: all var(--transition-normal);
-}
-
-.step-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
 }
 
 .step-number {
@@ -996,7 +990,7 @@ a:hover {
     left: 50%;
     transform: translateX(-50%);
     width: 40px;
-    height: 50px;
+    height: 40px;
     background: var(--green-primary);
     color: var(--white);
     border-radius: 50%;
