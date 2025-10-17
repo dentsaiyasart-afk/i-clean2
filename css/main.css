@@ -329,7 +329,7 @@ a {
 }
 
 .badge-2 {
-    top: 10%;
+    bottom: 10%;
     right: -12%;
     animation-delay: 1s;
 }
