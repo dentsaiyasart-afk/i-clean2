@@ -928,5 +928,5 @@ animateElements.forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
     el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    fadeInObserver.}
-)
+    fadeInObserver.observe(el); // <-- ต้องเป็นแบบนี้
+}); // <-- ปิด forEach อย่างถูกต้อง
