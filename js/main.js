@@ -919,7 +919,7 @@ console.log('🚀 All scripts loaded and initialized successfully!');
 console.log('📱 Website is fully responsive and optimized');
 console.log('♿ Accessibility features enabled');
 console.log('📊 Analytics tracking active');
-console.log('⚡ Performance monitoring active');unobserve(entry.target); // <--- โค้ดที่ผิดพลาดเริ่มต้นที่นี่
+console.log('⚡ Performance monitoring active'); // <--- โค้ดที่ผิดพลาดเริ่มต้นที่นี่
 
 // Add fade-in animation to elements
 const animateElements = document.querySelectorAll('.value-card, .benefit-card, .testimonial-card, .step-card, .trust-box, .cert-badge');
