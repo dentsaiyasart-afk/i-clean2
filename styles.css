@@ -992,8 +992,8 @@ a:hover {
     top: -20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     background: var(--green-primary);
     color: var(--white);
     border-radius: 50%;
