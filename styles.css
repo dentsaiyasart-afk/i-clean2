@@ -308,8 +308,6 @@ a:hover {
 
 .hero-title .highlight {
     color: var(--green-primary);
-    position: relative;
-    display: inline-block;
 }
 
 .hero-subtitle {
@@ -957,7 +955,7 @@ a:hover {
 
 .how-to-use {
     background: var(--cream);
-    padding: 30px;
+    padding: 50px;
     border-radius: var(--radius-lg);
 }
 
