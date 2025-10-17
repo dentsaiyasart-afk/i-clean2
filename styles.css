@@ -989,20 +989,23 @@ a:hover {
 
 .step-number {
     position: absolute;
-    top: -20px; /* ลองปรับเป็น -20px เพื่อให้ลอยสูงขึ้นอีก */
+    top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    width: 45px; /* เพิ่มขนาดตัวเลขให้ใหญ่ขึ้นเล็กน้อย */
-    height: 45px;
+    width: 40px;
+    height: 40px;
     background: var(--green-primary);
     color: var(--white);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 800; /* ให้ตัวเลขเข้มขึ้น */
-    font-size: 20px; /* เพิ่มขนาดฟอนต์ */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้ดูนูนขึ้น */
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: var(--shadow-md);
+    
+    /* 🔥 เพิ่มส่วนนี้เพื่อให้ลอยอยู่ด้านหน้า 🔥 */
+    z-index: 10; 
 }
 
 .step-icon {
