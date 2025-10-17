@@ -688,11 +688,11 @@ document.querySelectorAll('.value-card, .benefit-card, .testimonial-card').forEa
    ======================================== */
 
 console.log(
-    '%c🌿 i-Clean - Organic Dish Washing Liquid',
+    '%c🌿 i-Clean - Organic Nature 100%',
     'color: #4A7C4E; font-size: 20px; font-weight: bold; padding: 10px;'
 );
 console.log(
-    '%cผลิตภัณฑ์น้ำยาล้างจาน Organic 100% ปลอดภัย ไม่กัดมือ รักษ์โลก',
+    '%cผลิตภัณฑ์ Organic 100% ปลอดภัย ไม่กัดมือ รักษ์โลก',
     'color: #F9DB6D; font-size: 14px; padding: 5px;'
 );
 console.log(
