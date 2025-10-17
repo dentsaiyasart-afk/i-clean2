@@ -989,7 +989,7 @@ a:hover {
 
 .step-number {
     position: absolute;
-    top: -10px;
+    top: -40px;
     left: 50%;
     transform: translateX(-50%);
     width: 40px;
