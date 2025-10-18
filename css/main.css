@@ -2626,3 +2626,97 @@ img[loading="lazy"] {
     background: var(--yellow-primary);
     color: var(--green-dark);
 }
+/* Swiper Styles (ขนาดพอดี + สวย) */
+.hero-image {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    margin-bottom: 40px;
+}
+
+.mySwiper {
+    width: 450px;
+    height: 350px;  /* ลดลงจาก 450px เพื่อไม่ใหญ่เกิน – ปรับได้ถ้าต้องการ */
+    aspect-ratio: 1/1;  /* รักษา square ratio */
+}
+
+.mySwiper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mySwiper .swiper-slide img.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* แสดงรูปเต็มโดยไม่ยืด (มีขอบขาวถ้า ratio ไม่ตรง) – ถ้าต้องการ crop เต็ม เปลี่ยนเป็น cover */
+    object-position: center;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+}
+
+.mySwiper .swiper-slide img:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+}
+
+/* Arrows < > สวยกลมสีเขียว */
+.swiper-button-next,
+.swiper-button-prev {
+    color: white !important;
+    background: var(--green-primary) !important;
+    width: 45px !important;
+    height: 45px !important;
+    border-radius: 50% !important;
+    opacity: 1 !important;
+    transition: all 0.3s ease !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background: var(--green-dark) !important;
+    transform: scale(1.1) !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 18px !important;
+}
+
+/* Dots ... สีขาว/เหลือง */
+.swiper-pagination {
+    bottom: 10px !important;
+}
+
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+    width: 10px !important;
+    height: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: var(--yellow-primary) !important;
+    transform: scale(1.2) !important;
+}
+
+.swiper-pagination-bullet:hover {
+    background: var(--green-light) !important;
+}
+
+/* Table + Responsive (fit mobile ดีขึ้น) */
+.product-specs { flex: 1; min-width: 300px; }
+.specs-table { width: 100%; border-collapse: collapse; box-shadow: var(--shadow-sm); border-radius: var(--radius-md); overflow: hidden; }
+.specs-table td { padding: 12px; border-bottom: 1px solid var(--gray-light); }
+.spec-label { background: var(--green-light); font-weight: 600; width: 30%; color: var(--green-primary); }
+
+@media (max-width: 968px) {
+    .hero-image { flex-direction: column; gap: 20px; }
+    .mySwiper { width: 100%; height: 280px; }  /* ลดลงสำหรับ tablet */
+}
+
+@media (max-width: 640px) {
+    .mySwiper { height: 250px; }  /* เล็กสำหรับมือถือ */
+    .specs-table td { display: block; }
+    .spec-label { width: 100%; margin-bottom: 5px; }
+}
