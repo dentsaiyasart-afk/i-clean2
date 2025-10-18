@@ -2627,7 +2627,7 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Carousel Fix for 1080x1080 Images */
+/* Carousel Debug & Size Fix */
 .hero-image {
     display: flex;
     gap: 40px;
@@ -2638,18 +2638,19 @@ img[loading="lazy"] {
 .carousel-container {
     position: relative;
     flex: 1;
-    max-width: 500px;  /* Limit width เพื่อ fit desktop */
-    aspect-ratio: 1/1;  /* Square ratio สำหรับรูป 1080x1080 */
+    max-width: 450px;  /* ลดลงนิดเพื่อ fit 1080x1080 ดีขึ้น */
+    aspect-ratio: 1/1;  /* Square: กว้าง=สูง */
     overflow: hidden;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
+    border: 1px solid red;  /* DEBUG: ลบหลัง test */
 }
 
 .carousel-slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
     width: 100%;
-    height: 100%;  /* ใช้ 100% ของ parent แทน fixed height เพื่อ fit ratio */
+    height: 100%;
 }
 
 .carousel-slide {
@@ -2658,24 +2659,24 @@ img[loading="lazy"] {
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1/1;  /* บังคับ square ทุก slide */
+    aspect-ratio: 1/1;
+    border: 1px solid blue;  /* DEBUG: ลบหลัง test */
 }
 
 .carousel-slide img.product-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  /* เปลี่ยนจาก cover เป็น contain: แสดงรูปเต็ม ไม่ crop, กลางว่างถ้าจำเป็น */
-    object-position: center;  /* Center รูป */
+    object-fit: contain;  /* แสดงเต็มรูป ไม่ crop */
+    object-position: center;
     border-radius: var(--radius-lg);
     cursor: pointer;
 }
 
 .carousel-slide img:hover {
     transform: scale(1.02);
-    transition: transform 0.3s ease;
 }
 
-/* Arrows & Indicators (คงเดิม แต่เพิ่ม hover effect) */
+/* Arrows */
 .carousel-prev,
 .carousel-next {
     position: absolute;
@@ -2692,13 +2693,8 @@ img[loading="lazy"] {
     border-radius: 50%;
 }
 
-.carousel-prev {
-    left: 10px;
-}
-
-.carousel-next {
-    right: 10px;
-}
+.carousel-prev { left: 10px; }
+.carousel-next { right: 10px; }
 
 .carousel-prev:hover,
 .carousel-next:hover {
@@ -2706,7 +2702,8 @@ img[loading="lazy"] {
     transform: translateY(-50%) scale(1.1);
 }
 
-.carousel-indicators {  /* แก้ชื่อจาก carousel เป็น carousel */
+/* Indicators */
+.carousel-indicators {
     position: absolute;
     bottom: 15px;
     left: 50%;
@@ -2717,12 +2714,13 @@ img[loading="lazy"] {
 }
 
 .indicator {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: all 0.3s ease;
+    border: 1px solid green;  /* DEBUG: ลบหลัง test */
 }
 
 .indicator.active {
@@ -2734,44 +2732,20 @@ img[loading="lazy"] {
     background: var(--green-primary);
 }
 
-/* Table Fit (คงเดิม) */
+/* Table */
 .product-specs {
     flex: 1;
     min-width: 300px;
 }
 
-.specs-table {
-    width: 100%;
-    /* ... rest คงเดิม ... */
-}
-
-/* Responsive: Adjust for Mobile */
+/* Responsive */
 @media (max-width: 968px) {
-    .hero-image {
-        flex-direction: column;
-        gap: 20px;
-    }
-    
-    .carousel-container {
-        max-width: 100%;  /* Full width ใน tablet */
-        aspect-ratio: 1/1;
-    }
+    .hero-image { flex-direction: column; gap: 20px; }
+    .carousel-container { max-width: 100%; }
 }
 
 @media (max-width: 640px) {
-    .carousel-container {
-        max-width: 100%;
-        aspect-ratio: 16/9;  /* เปลี่ยน ratio เป็น landscape ใน mobile ถ้าต้องการ */
-    }
-    
-    .specs-table td {
-        display: block;
-        width: 100%;
-    }
-    
-    .spec-label {
-        width: 100%;
-    }
+    .carousel-container { aspect-ratio: 1/1; }  /* คง square ใน mobile */
 }
 
 /* Lightbox สำหรับคลิกขยายรูป (overlay popup) */
