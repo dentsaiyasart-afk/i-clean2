@@ -2627,7 +2627,7 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Carousel Debug & Size Fix */
+/* Carousel Final Fix */
 .hero-image {
     display: flex;
     gap: 40px;
@@ -2638,17 +2638,16 @@ img[loading="lazy"] {
 .carousel-container {
     position: relative;
     flex: 1;
-    max-width: 450px;  /* ลดลงนิดเพื่อ fit 1080x1080 ดีขึ้น */
-    aspect-ratio: 1/1;  /* Square: กว้าง=สูง */
+    max-width: 450px;
+    aspect-ratio: 1/1;
     overflow: hidden;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
-    border: 1px solid red;  /* DEBUG: ลบหลัง test */
 }
 
 .carousel-slides {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out !important;
     width: 100%;
     height: 100%;
 }
@@ -2660,13 +2659,12 @@ img[loading="lazy"] {
     align-items: center;
     justify-content: center;
     aspect-ratio: 1/1;
-    border: 1px solid blue;  /* DEBUG: ลบหลัง test */
 }
 
 .carousel-slide img.product-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  /* แสดงเต็มรูป ไม่ crop */
+    object-fit: contain;  /* รูป 1080x1080 fit เต็มโดยไม่ยืด */
     object-position: center;
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -2674,6 +2672,7 @@ img[loading="lazy"] {
 
 .carousel-slide img:hover {
     transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
 
 /* Arrows */
@@ -2693,8 +2692,13 @@ img[loading="lazy"] {
     border-radius: 50%;
 }
 
-.carousel-prev { left: 10px; }
-.carousel-next { right: 10px; }
+.carousel-prev {
+    left: 10px;
+}
+
+.carousel-next {
+    right: 10px;
+}
 
 .carousel-prev:hover,
 .carousel-next:hover {
@@ -2720,7 +2724,6 @@ img[loading="lazy"] {
     background: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 1px solid green;  /* DEBUG: ลบหลัง test */
 }
 
 .indicator.active {
@@ -2732,51 +2735,6 @@ img[loading="lazy"] {
     background: var(--green-primary);
 }
 
-/* Table */
-.product-specs {
-    flex: 1;
-    min-width: 300px;
-}
-
-/* Responsive */
-@media (max-width: 968px) {
-    .hero-image { flex-direction: column; gap: 20px; }
-    .carousel-container { max-width: 100%; }
-}
-
-@media (max-width: 640px) {
-    .carousel-container { aspect-ratio: 1/1; }  /* คง square ใน mobile */
-}
-
-/* Lightbox สำหรับคลิกขยายรูป (overlay popup) */
-.lightbox {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.9);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-}
-
-.lightbox.active {
-    display: flex;
-}
-
-.lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: var(--radius-md);
-}
-
-.lightbox-close {
-    position: absolute;
-    top: 20px;
-    right: 30px;
-    color: white;
-    font-size: 40px;
-    cursor: pointer;
-}
+/* Table & Responsive คงเดิม */
+.product-specs { flex: 1; min-width: 300px; }
+@media (max-width: 968px) { .hero-image { flex-direction: column; } .carousel-container { max-width: 100%; } }

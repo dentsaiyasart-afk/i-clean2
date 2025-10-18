@@ -884,9 +884,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Carousel JS with Full Debug
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== Carousel Debug Started ===');  // Debug: ดูใน Console
+    console.log('Carousel loading...');
     
     const slides = document.querySelectorAll('.carousel-slide');
     const indicators = document.querySelectorAll('.indicator');
@@ -897,69 +896,61 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSlide = 0;
     const totalSlides = slides.length;
     
-    console.log(`Found: ${totalSlides} slides, ${indicators.length} indicators`);  // ควร = 6
-    
-    if (!container) {
-        console.error('Error: .carousel-slides not found!');
+    if (totalSlides === 0) {
+        console.error('No slides found! Check HTML.');
         return;
     }
+    console.log(`Loaded: ${totalSlides} slides, ${indicators.length} indicators`);
     
     function showSlide(index) {
-        if (index >= totalSlides) currentSlide = 0;
-        if (index < 0) currentSlide = totalSlides - 1;
+        currentSlide = (index + totalSlides) % totalSlides;  // Wrap around safe
         
+        // Force transform
         container.style.transform = `translateX(${-currentSlide * 100}%)`;
+        console.log(`Moved to slide ${currentSlide}`);
         
-        slides.forEach(slide => slide.classList.remove('active'));
-        indicators.forEach(ind => ind.classList.remove('active'));
-        slides[currentSlide].classList.add('active');
-        indicators[currentSlide].classList.add('active');
-        
-        console.log(`Slide changed to ${currentSlide}`);  // Debug
+        // Update classes
+        slides.forEach((slide, i) => {
+            slide.classList.toggle('active', i === currentSlide);
+        });
+        indicators.forEach((ind, i) => {
+            ind.classList.toggle('active', i === currentSlide);
+        });
     }
     
     // Arrows
     if (nextBtn) {
-        nextBtn.addEventListener('click', function() {
-            currentSlide++;
-            showSlide(currentSlide);
-            console.log('Next clicked');
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
         });
-        console.log('Next button ready');
+        console.log('Next OK');
     } else {
-        console.error('Error: .carousel-next not found!');
+        console.error('Next button missing!');
     }
     
     if (prevBtn) {
-        prevBtn.addEventListener('click', function() {
-            currentSlide--;
-            showSlide(currentSlide);
-            console.log('Prev clicked');
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
         });
-        console.log('Prev button ready');
+        console.log('Prev OK');
     } else {
-        console.error('Error: .carousel-prev not found!');
+        console.error('Prev button missing!');
     }
     
-    // Indicators - THIS IS THE KEY FIX
-    if (indicators.length > 0) {
-        indicators.forEach((indicator, index) => {
-            indicator.addEventListener('click', function() {
-                currentSlide = index;
-                showSlide(currentSlide);
-                console.log(`Indicator ${index} clicked!`);  // Debug: ดูตรงนี้!
-            });
+    // Indicators
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            showSlide(index);
+            console.log(`Indicator ${index} clicked`);
         });
-        console.log('All indicators ready');
-    } else {
-        console.error('Error: No .indicator found!');
-    }
+    });
+    console.log('Indicators OK');
     
-    // Lightbox (click รูปขยาย)
+    // Lightbox
     slides.forEach(slide => {
         const img = slide.querySelector('img');
         if (img) {
-            img.addEventListener('click', function() {
+            img.addEventListener('click', () => {
                 const lightbox = document.createElement('div');
                 lightbox.className = 'lightbox active';
                 lightbox.innerHTML = `
@@ -967,17 +958,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <img src="${img.src}" alt="${img.alt}">
                 `;
                 document.body.appendChild(lightbox);
-                lightbox.querySelector('.lightbox-close').addEventListener('click', function() { lightbox.remove(); });
-                lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.remove(); });
-                console.log('Lightbox opened');
+                lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.remove());
+                lightbox.addEventListener('click', (e) => {
+                    if (e.target === lightbox) lightbox.remove();
+                });
             });
         }
     });
     
-    // Init
+    // Start
     showSlide(0);
     setInterval(() => { currentSlide++; showSlide(currentSlide); }, 3000);
-    console.log('=== Carousel Debug Ended ===');
+    console.log('Carousel ready!');
 });
 
 /* ========================================
