@@ -2627,7 +2627,7 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Swiper Styles (Fix ขนาด + Theme) */
+/* Swiper Styles (สวย + Working) */
 .hero-image {
     display: flex;
     gap: 40px;
@@ -2637,8 +2637,8 @@ img[loading="lazy"] {
 
 .mySwiper {
     width: 450px;
-    height: 450px;  /* Square สำหรับรูป 1080x1080 */
-    aspect-ratio: 1/1;  /* บังคับ square ratio */
+    height: 450px;
+    aspect-ratio: 1/1;
 }
 
 .mySwiper .swiper-slide {
@@ -2650,7 +2650,7 @@ img[loading="lazy"] {
 .mySwiper .swiper-slide img.product-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  /* แสดงรูปเต็ม (ขอบขาวถ้า ratio ไม่ตรง) – เปลี่ยนเป็น cover ถ้าต้องการ crop เต็มกรอบ */
+    object-fit: cover;  /* Crop เต็มกรอบ, ไม่มีขอบขาว */
     object-position: center;
     border-radius: var(--radius-lg);
     cursor: pointer;
@@ -2661,33 +2661,34 @@ img[loading="lazy"] {
     transition: transform 0.3s ease;
 }
 
-/* Arrows < > สีเขียวกลม */
 .swiper-button-next,
 .swiper-button-prev {
     color: white !important;
     background: var(--green-primary) !important;
-    width: 45px !important;
-    height: 45px !important;
+    width: 50px !important;
+    height: 50px !important;
     border-radius: 50% !important;
-    opacity: 0.8;
-    transition: all 0.3s ease;
+    opacity: 1 !important;  /* Force show */
+    transition: all 0.3s ease !important;
 }
 
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
-    opacity: 1;
     background: var(--green-dark) !important;
+    transform: scale(1.1) !important;
 }
 
 .swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 18px !important;
-    font-weight: bold !important;
+    font-size: 20px !important;
 }
 
-/* Dots ... */
+.swiper-pagination {
+    bottom: 15px !important;
+}
+
 .swiper-pagination-bullet {
-    background: rgba(255, 255, 255, 0.7) !important;
+    background: rgba(255, 255, 255, 0.8) !important;
     opacity: 1 !important;
     width: 12px !important;
     height: 12px !important;
@@ -2695,70 +2696,16 @@ img[loading="lazy"] {
 
 .swiper-pagination-bullet-active {
     background: var(--yellow-primary) !important;
-    transform: scale(1.2);
 }
 
-.swiper-pagination {
-    bottom: 10px !important;
+.swiper-pagination-bullet:hover {
+    background: var(--green-light) !important;
 }
 
-/* Table คงเดิม */
-.product-specs {
-    flex: 1;
-    min-width: 300px;
-}
+.product-specs { flex: 1; min-width: 300px; }
+.specs-table { width: 100%; border-collapse: collapse; box-shadow: var(--shadow-sm); border-radius: var(--radius-md); overflow: hidden; }
+.specs-table td { padding: 12px; border-bottom: 1px solid var(--gray-light); }
+.spec-label { background: var(--green-light); font-weight: 600; width: 30%; color: var(--green-primary); }
 
-.specs-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
-}
-
-.specs-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--gray-light);
-}
-
-.specs-table tr:last-child td {
-    border-bottom: none;
-}
-
-.spec-label {
-    background: var(--green-light);
-    font-weight: 600;
-    width: 30%;
-    color: var(--green-primary);
-}
-
-/* Responsive (fit mobile) */
-@media (max-width: 968px) {
-    .hero-image {
-        flex-direction: column;
-        gap: 20px;
-    }
-    .mySwiper {
-        width: 100%;
-        height: 300px;
-        aspect-ratio: 1/1;
-    }
-    .product-specs {
-        min-width: auto;
-    }
-}
-
-@media (max-width: 640px) {
-    .mySwiper {
-        height: 250px;
-    }
-    .specs-table td {
-        display: block;
-        width: 100%;
-    }
-    .spec-label {
-        width: 100%;
-        margin-bottom: 5px;
-    }
-}
+@media (max-width: 968px) { .hero-image { flex-direction: column; gap: 20px; } .mySwiper { width: 100%; height: 350px; } }
+@media (max-width: 640px) { .mySwiper { height: 280px; } .spec-label { width: 100%; display: block; } }

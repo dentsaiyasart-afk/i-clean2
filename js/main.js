@@ -884,45 +884,45 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Init Swiper (หลัง DOM ready)
-document.addEventListener('DOMContentLoaded', function() {
+// Init Swiper (Load after CDN)
+if (typeof Swiper !== 'undefined') {
     var swiper = new Swiper(".mySwiper", {
-        loop: true,  // เลื่อนวนลูป
-        spaceBetween: 10,
+        loop: true,
+        spaceBetween: 0,
         pagination: {
             el: ".swiper-pagination",
-            clickable: true,  // กด dots ได้
-            dynamicBullets: true,  // dots น้อยลงถ้าเยอะ
+            clickable: true,
         },
         navigation: {
             nextEl: ".swiper-button-next",
             prevEl: ".swiper-button-prev",
         },
         autoplay: {
-            delay: 4000,  // Auto เลื่อนทุก 4 วิ (ลบถ้าไม่ต้องการ)
+            delay: 4000,
             disableOnInteraction: false,
         },
         on: {
+            init: function () {
+                console.log('Swiper initialized!');
+            },
             slideChange: function () {
-                console.log('Swiper slide changed!');  // Check F12 Console
+                console.log('Slide changed!');
             }
         }
     });
-    
-    console.log('Swiper initialized!');
-});
+} else {
+    console.error('Swiper not loaded! Check CDN.');
+}
 
-// คลิก img ขยาย (lightbox)
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.product-img').forEach(img => {
-        img.addEventListener('click', () => {
-            const lightbox = document.createElement('div');
-            lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
-            lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;font-weight:bold;" onclick="this.parentElement.remove()">&times;</span><img src="${img.src}" alt="${img.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
-            document.body.appendChild(lightbox);
-            lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.remove(); });
-        });
-    });
+// Lightbox
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('product-img')) {
+        const lightbox = document.createElement('div');
+        lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
+        lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;" onclick="this.parentElement.remove()">&times;</span><img src="${e.target.src}" alt="${e.target.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
+        document.body.appendChild(lightbox);
+        lightbox.addEventListener('click', ev => { if (ev.target === lightbox) lightbox.remove(); });
+    }
 });
 
 /* ========================================
