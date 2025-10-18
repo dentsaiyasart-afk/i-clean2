@@ -60,7 +60,9 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
-    
+    <!-- Swiper CDN (ย้ายมาที่นี่) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- Structured Data - Product Schema -->
     <script type="application/ld+json">
     {
@@ -531,9 +533,25 @@
     <section id="product" class="product-details">
         <div class="container">
             <h2 class="section-title">📦 รายละเอียดผลิตภัณฑ์</h2>
-            <div class="product-content">
-                <div class="product-image-section">
-                    <img src="../img/c.png" alt="i-Clean Products" class="product-detail-img">
+            <div class="hero-image">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="../img/43.png" alt="i-Clean ds 1" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/45.png" alt="i-Clean ds 2" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/47.png" alt="i-Clean ds 3" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/49.png" alt="i-Clean ds 4" class="product-img">
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
                 <div class="product-specs">
                     <table class="specs-table">
@@ -899,6 +917,47 @@
             el.style.transform = 'translateY(20px)';
             el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(el);
+        });
+                // Init Swiper (Inline, after CDN)
+        if (typeof Swiper !== 'undefined') {
+            var swiper = new Swiper(".mySwiper", {
+                loop: true,
+                spaceBetween: 0,
+                pagination: {
+                    el: ".swiper-pagination",
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: ".swiper-button-next",
+                    prevEl: ".swiper-button-prev",
+                },
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                on: {
+                    init: function () {
+                        console.log('Swiper initialized!');
+                    },
+                    slideChange: function () {
+                        console.log('Slide changed!');
+                    }
+                }
+            });
+            swiper.isLocked = false;  // Force enable navigation
+        } else {
+            console.error('Swiper CDN not loaded!');
+        }
+
+        // Lightbox
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('product-img')) {
+                const lightbox = document.createElement('div');
+                lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
+                lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;" onclick="this.parentElement.remove()">&times;</span><img src="${e.target.src}" alt="${e.target.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
+                document.body.appendChild(lightbox);
+                lightbox.addEventListener('click', ev => { if (ev.target === lightbox) lightbox.remove(); });
+            }
         });
     </script>
 </body>
