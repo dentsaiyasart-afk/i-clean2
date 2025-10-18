@@ -914,7 +914,6 @@ if (typeof Swiper !== 'undefined') {
 } else {
     console.error('Swiper CDN not loaded!');
 }
-setInterval(() => { currentSlide++; showSlide(currentSlide); }, 5000);
 // Lightbox
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('product-img')) {
