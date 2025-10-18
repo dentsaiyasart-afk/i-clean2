@@ -930,6 +930,41 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Carousel loaded!');  // Check in Console
 });
 
+// Init Swiper
+var swiper = new Swiper(".mySwiper", {
+    loop: true,  // เลื่อนวนลูป
+    spaceBetween: 10,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,  // กด dots ได้
+        dynamicBullets: true,  // แสดง dots น้อยลงถ้ามีเยอะ
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    autoplay: {
+        delay: 3000,  // Auto เลื่อนทุก 3 วิ (ลบถ้าไม่ต้องการ)
+        disableOnInteraction: false,
+    },
+    on: {
+        slideChange: function () {
+            console.log('Slide changed!');  // Check Console ถ้าต้องการ
+        }
+    }
+});
+
+// Optional: คลิก img ขยาย (lightbox)
+document.querySelectorAll('.product-img').forEach(img => {
+    img.addEventListener('click', () => {
+        const lightbox = document.createElement('div');
+        lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
+        lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;" onclick="this.parentElement.remove()">&times;</span><img src="${img.src}" alt="${img.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
+        document.body.appendChild(lightbox);
+        lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.remove(); });
+    });
+});
+
 /* ========================================
    SCROLL PROGRESS INDICATOR (OPTIONAL)
    ======================================== */

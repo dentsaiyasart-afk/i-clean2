@@ -2627,7 +2627,7 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Simple Carousel Fix */
+/* Swiper Styles (Match i-Clean Theme) */
 .hero-image {
     display: flex;
     gap: 40px;
@@ -2635,96 +2635,61 @@ img[loading="lazy"] {
     margin-bottom: 40px;
 }
 
-.carousel {
-    position: relative;
-    flex: 1;
-    max-width: 450px;
-    height: 400px;  /* Height สำหรับ square 1080x1080 */
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+.mySwiper {
+    width: 450px;  /* Width สำหรับ desktop */
+    height: 400px;  /* Height สำหรับรูป 1080x1080 square-ish */
 }
 
-.carousel-inner {
-    display: flex;
-    transition: transform 0.5s ease;
-    height: 100%;
-}
-
-.carousel-item {
-    min-width: 100%;
-    height: 100%;
-    object-fit: contain;  /* Fit รูป 1080x1080 เต็ม ไม่ยืด/ crop */
-    object-position: center;
-    display: none;
-}
-
-.carousel-item.active {
-    display: block;
-}
-
-.carousel-control {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(74, 124, 78, 0.8);  /* Green theme */
-    color: white;
-    border: none;
-    width: 40px;
-    height: 40px;
+.mySwiper .swiper-slide {
+    text-align: center;
     font-size: 18px;
-    cursor: pointer;
-    z-index: 10;
-    border-radius: 50%;
-    transition: all 0.3s ease;
-}
-
-.carousel-control:hover {
-    background: var(--green-primary);
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
-.carousel-indicators {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    background: #fff;
     display: flex;
-    gap: 8px;
-    z-index: 10;
+    justify-content: center;
+    align-items: center;
 }
 
-.indicator-dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
+.mySwiper .swiper-slide img.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;  /* Fit รูปเต็ม ไม่ยืด/ crop – ถ้าต้องการ crop เปลี่ยนเป็น cover */
+    object-position: center;
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    transition: all 0.3s ease;
 }
 
-.indicator-dot.active {
-    background: var(--yellow-primary);
+/* Arrows (เปลี่ยนเป็น < > สีเขียว) */
+.swiper-button-next,
+.swiper-button-prev {
+    color: var(--green-primary) !important;
+    background: rgba(74, 124, 78, 0.8) !important;
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 50% !important;
 }
 
-.indicator-dot:hover {
-    background: var(--green-primary);
+.swiper-button-next:after,
+.swiper-button-prev:after {
+    font-size: 16px !important;
+    font-weight: bold !important;
 }
 
-/* Table & Responsive */
-.product-specs { flex: 1; min-width: 300px; }
-.specs-table { width: 100%; border-collapse: collapse; }
-.specs-table td { padding: 12px; border-bottom: 1px solid var(--gray-light); }
-.spec-label { background: var(--green-light); font-weight: 600; width: 30%; color: var(--green-primary); }
+/* Indicators (dots) */
+.swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 0.7) !important;
+    opacity: 1 !important;
+}
 
+.swiper-pagination-bullet-active {
+    background: var(--yellow-primary) !important;
+}
+
+/* Responsive */
 @media (max-width: 968px) {
     .hero-image { flex-direction: column; gap: 20px; }
-    .carousel { max-width: 100%; height: 300px; }
+    .mySwiper { width: 100%; height: 300px; }
 }
 
 @media (max-width: 640px) {
-    .carousel { height: 250px; }
-    .spec-label { width: 100%; display: block; }
+    .mySwiper { height: 250px; }
 }

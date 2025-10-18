@@ -21,6 +21,10 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+    <!-- Swiper CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
 </head>
 <body>
     <!-- Navigation -->
@@ -359,21 +363,33 @@
         <div class="container">
             <h2 class="section-title">📦 รายละเอียดผลิตภัณฑ์</h2>
             <div class="hero-image">
-    <!-- Carousel -->
-    <div class="carousel">
-        <div class="carousel-inner">
-            <img src="../img/4.png" alt="i-Clean Mosquito Repellent 1" class="carousel-item active">
-            <img src="../img/17.png" alt="i-Clean Mosquito Repellent 2" class="carousel-item">
-            <img src="../img/1.png" alt="i-Clean Mosquito Repellent 3" class="carousel-item">
-            <img src="../img/8.png" alt="i-Clean Mosquito Repellent 4" class="carousel-item">
-            <img src="../img/11.png" alt="i-Clean Mosquito Repellent 5" class="carousel-item">
-            <img src="../img/3.png" alt="i-Clean Mosquito Repellent 6" class="carousel-item">
+    <!-- Swiper Carousel -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="../img/4.png" alt="i-Clean Mosquito Repellent 1" class="product-img">
+            </div>
+            <div class="swiper-slide">
+                <img src="../img/17.png" alt="i-Clean Mosquito Repellent 2" class="product-img">
+            </div>
+            <div class="swiper-slide">
+                <img src="../img/1.png" alt="i-Clean Mosquito Repellent 3" class="product-img">
+            </div>
+            <div class="swiper-slide">
+                <img src="../img/8.png" alt="i-Clean Mosquito Repellent 4" class="product-img">
+            </div>
+            <div class="swiper-slide">
+                <img src="../img/11.png" alt="i-Clean Mosquito Repellent 5" class="product-img">
+            </div>
+            <div class="swiper-slide">
+                <img src="../img/3.png" alt="i-Clean Mosquito Repellent 6" class="product-img">
+            </div>
         </div>
         <!-- Arrows -->
-        <button class="carousel-control prev" id="prevBtn">‹</button>
-        <button class="carousel-control next" id="nextBtn">›</button>
-        <!-- Indicators -->
-        <div class="carousel-indicators" id="indicators"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <!-- Indicators (dots) -->
+        <div class="swiper-pagination"></div>
     </div>
                 <div class="product-specs">
                     <table class="specs-table">
