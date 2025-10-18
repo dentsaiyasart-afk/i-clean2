@@ -968,7 +968,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Start
     showSlide(0);
-    setInterval(() => { currentSlide++; showSlide(currentSlide); }, 3000);
     console.log('Carousel ready!');
 });
 
