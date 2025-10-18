@@ -884,51 +884,50 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Simple Carousel JS (14 lines core + indicators)
 document.addEventListener('DOMContentLoaded', function() {
-    const slidesContainer = document.getElementById("slides-container");
-    const slide = document.querySelector(".slide");
-    const prevButton = document.getElementById("slide-arrow-prev");
-    const nextButton = document.getElementById("slide-arrow-next");
-    const totalSlides = document.querySelectorAll('.slide').length;  // 6
+    const items = document.querySelectorAll('.carousel-item');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicatorsContainer = document.getElementById('indicators');
+    let currentIndex = 0;
 
-    // Core: Arrows เลื่อนด้วย scrollLeft
-    if (nextButton && slide) {
-        nextButton.addEventListener("click", () => {
-            const slideWidth = slide.clientWidth;
-            slidesContainer.scrollLeft += slideWidth;
-        });
-    }
-
-    if (prevButton && slide) {
-        prevButton.addEventListener("click", () => {
-            const slideWidth = slide.clientWidth;
-            slidesContainer.scrollLeft -= slideWidth;
-        });
-    }
-
-    // เพิ่ม Indicators (dots)
-    const indicatorsContainer = document.getElementById('carousel-indicators');
-    for (let i = 0; i < totalSlides; i++) {
-        const indicator = document.createElement('span');
-        indicator.classList.add('indicator');
-        if (i === 0) indicator.classList.add('active');
-        indicator.addEventListener('click', () => {
-            const slideWidth = slide.clientWidth;
-            slidesContainer.scrollLeft = i * slideWidth;
-        });
-        indicatorsContainer.appendChild(indicator);
-    }
-
-    // Update active dot เมื่อ scroll (detect current slide)
-    slidesContainer.addEventListener('scroll', () => {
-        const currentSlide = Math.round(slidesContainer.scrollLeft / slide.clientWidth);
-        document.querySelectorAll('.indicator').forEach((ind, i) => {
-            ind.classList.toggle('active', i === currentSlide);
-        });
+    // สร้าง indicators (dots)
+    items.forEach((_, index) => {
+        const dot = document.createElement('span');
+        dot.classList.add('indicator-dot');
+        if (index === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => goToSlide(index));
+        indicatorsContainer.appendChild(dot);
     });
 
-    console.log('Carousel ready! Total slides:', totalSlides);  // Check Console
+    const dots = document.querySelectorAll('.indicator-dot');
+
+    function goToSlide(index) {
+        items[currentIndex].classList.remove('active');
+        dots[currentIndex].classList.remove('active');
+        currentIndex = index;
+        items[currentIndex].classList.add('active');
+        dots[currentIndex].classList.add('active');
+    }
+
+    // Arrows
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % items.length;
+        goToSlide(currentIndex);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        goToSlide(currentIndex);
+    });
+
+    // Keyboard support (optional)
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') nextBtn.click();
+        if (e.key === 'ArrowLeft') prevBtn.click();
+    });
+
+    console.log('Carousel loaded!');  // Check in Console
 });
 
 /* ========================================
