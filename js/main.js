@@ -884,84 +884,44 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Init Swiper (หลัง DOM ready)
 document.addEventListener('DOMContentLoaded', function() {
-    const items = document.querySelectorAll('.carousel-item');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const indicatorsContainer = document.getElementById('indicators');
-    let currentIndex = 0;
-
-    // สร้าง indicators (dots)
-    items.forEach((_, index) => {
-        const dot = document.createElement('span');
-        dot.classList.add('indicator-dot');
-        if (index === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => goToSlide(index));
-        indicatorsContainer.appendChild(dot);
-    });
-
-    const dots = document.querySelectorAll('.indicator-dot');
-
-    function goToSlide(index) {
-        items[currentIndex].classList.remove('active');
-        dots[currentIndex].classList.remove('active');
-        currentIndex = index;
-        items[currentIndex].classList.add('active');
-        dots[currentIndex].classList.add('active');
-    }
-
-    // Arrows
-    nextBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % items.length;
-        goToSlide(currentIndex);
-    });
-
-    prevBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + items.length) % items.length;
-        goToSlide(currentIndex);
-    });
-
-    // Keyboard support (optional)
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') nextBtn.click();
-        if (e.key === 'ArrowLeft') prevBtn.click();
-    });
-
-    console.log('Carousel loaded!');  // Check in Console
-});
-
-// Init Swiper
-var swiper = new Swiper(".mySwiper", {
-    loop: true,  // เลื่อนวนลูป
-    spaceBetween: 10,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,  // กด dots ได้
-        dynamicBullets: true,  // แสดง dots น้อยลงถ้ามีเยอะ
-    },
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    autoplay: {
-        delay: 3000,  // Auto เลื่อนทุก 3 วิ (ลบถ้าไม่ต้องการ)
-        disableOnInteraction: false,
-    },
-    on: {
-        slideChange: function () {
-            console.log('Slide changed!');  // Check Console ถ้าต้องการ
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,  // เลื่อนวนลูป
+        spaceBetween: 10,
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,  // กด dots ได้
+            dynamicBullets: true,  // dots น้อยลงถ้าเยอะ
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        autoplay: {
+            delay: 4000,  // Auto เลื่อนทุก 4 วิ (ลบถ้าไม่ต้องการ)
+            disableOnInteraction: false,
+        },
+        on: {
+            slideChange: function () {
+                console.log('Swiper slide changed!');  // Check F12 Console
+            }
         }
-    }
+    });
+    
+    console.log('Swiper initialized!');
 });
 
-// Optional: คลิก img ขยาย (lightbox)
-document.querySelectorAll('.product-img').forEach(img => {
-    img.addEventListener('click', () => {
-        const lightbox = document.createElement('div');
-        lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
-        lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;" onclick="this.parentElement.remove()">&times;</span><img src="${img.src}" alt="${img.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
-        document.body.appendChild(lightbox);
-        lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.remove(); });
+// คลิก img ขยาย (lightbox)
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.product-img').forEach(img => {
+        img.addEventListener('click', () => {
+            const lightbox = document.createElement('div');
+            lightbox.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100vh;background:rgba(0,0,0,0.9);z-index:9999;display:flex;justify-content:center;align-items:center;';
+            lightbox.innerHTML = `<span style="position:absolute;top:20px;right:30px;color:white;font-size:40px;cursor:pointer;font-weight:bold;" onclick="this.parentElement.remove()">&times;</span><img src="${img.src}" alt="${img.alt}" style="max-width:90%;max-height:90%;border-radius:10px;">`;
+            document.body.appendChild(lightbox);
+            lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.remove(); });
+        });
     });
 });
 
