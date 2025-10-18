@@ -2635,8 +2635,8 @@ img[loading="lazy"] {
 }
 
 .mySwiper {
-    width: 450px;
-    height: 350px;  /* ลดลงจาก 450px เพื่อไม่ใหญ่เกิน – ปรับได้ถ้าต้องการ */
+    width: 590px;
+    height: 590px;  /* ลดลงจาก 450px เพื่อไม่ใหญ่เกิน – ปรับได้ถ้าต้องการ */
     aspect-ratio: 1/1;  /* รักษา square ratio */
 }
 
