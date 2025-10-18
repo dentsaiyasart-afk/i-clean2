@@ -884,7 +884,7 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Init Swiper (Load after CDN)
+// Init Swiper (Inline, after CDN)
 if (typeof Swiper !== 'undefined') {
     var swiper = new Swiper(".mySwiper", {
         loop: true,
@@ -910,8 +910,9 @@ if (typeof Swiper !== 'undefined') {
             }
         }
     });
+    swiper.isLocked = false;  // Force enable navigation
 } else {
-    console.error('Swiper not loaded! Check CDN.');
+    console.error('Swiper CDN not loaded!');
 }
 
 // Lightbox
