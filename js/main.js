@@ -884,65 +884,75 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Carousel Logic
 document.addEventListener('DOMContentLoaded', function() {
-    const slides = document.querySelectorAll('.carousel-slide');
+    const slides = document.querySelectorAll('.carousel-slide');  // slides (ไม่ใช่ slides)
     const indicators = document.querySelectorAll('.indicator');
     const prevBtn = document.querySelector('.carousel-prev');
     const nextBtn = document.querySelector('.carousel-next');
     const container = document.querySelector('.carousel-slides');
     let currentSlide = 0;
+    const totalSlides = slides.length;  // ควร = 6
 
-    // Function to show slide
+    console.log(`Found ${totalSlides} slides and ${indicators.length} indicators`);  // Debug: เช็คใน Console
+
     function showSlide(index) {
-        if (index >= slides.length) currentSlide = 0;
-        if (index < 0) currentSlide = slides.length - 1;
+        if (index >= totalSlides) currentSlide = 0;
+        if (index < 0) currentSlide = totalSlides - 1;
         
         container.style.transform = `translateX(${-currentSlide * 100}%)`;
         
-        // Update active classes
+        // แก้ชื่อ: slides -> slides
         slides.forEach(slide => slide.classList.remove('active'));
         indicators.forEach(ind => ind.classList.remove('active'));
         slides[currentSlide].classList.add('active');
         indicators[currentSlide].classList.add('active');
+        
+        console.log(`Showing slide ${currentSlide}`);  // Debug
     }
 
-    // Next/Prev buttons
-    if (nextBtn) nextBtn.addEventListener('click', () => { currentSlide++; showSlide(currentSlide); });
-    if (prevBtn) prevBtn.addEventListener('click', () => { currentSlide--; showSlide(currentSlide); });
+    // Arrows
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => { 
+            currentSlide++; 
+            showSlide(currentSlide); 
+        });
+    }
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => { 
+            currentSlide--; 
+            showSlide(currentSlide); 
+        });
+    }
 
-    // Indicators click
+    // Indicators: กดแล้วเลื่อน
     indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => { currentSlide = index; showSlide(currentSlide); });
+        indicator.addEventListener('click', () => { 
+            currentSlide = index; 
+            showSlide(currentSlide); 
+            console.log(`Clicked indicator ${index}`);  // Debug
+        });
     });
 
-    // Auto-slide (optional, เลื่อนอัตโนมัติทุก 5 วินาที)
-    // setInterval(() => { currentSlide++; showSlide(currentSlide); }, 5000);
-
-    // Click on image to open lightbox (ขยายรูป)
+    // Lightbox (คงเดิม)
     slides.forEach(slide => {
         const img = slide.querySelector('img');
-        img.addEventListener('click', () => openLightbox(img.src, img.alt));
+        if (img) {
+            img.addEventListener('click', () => {
+                const lightbox = document.createElement('div');
+                lightbox.className = 'lightbox active';
+                lightbox.innerHTML = `
+                    <span class="lightbox-close">&times;</span>
+                    <img src="${img.src}" alt="${img.alt}">
+                `;
+                document.body.appendChild(lightbox);
+                lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.remove());
+                lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.remove(); });
+            });
+        }
     });
 
-    // Lightbox functions
-    function openLightbox(src, alt) {
-        const lightbox = document.createElement('div');
-        lightbox.className = 'lightbox active';
-        lightbox.innerHTML = `
-            <span class="lightbox-close">&times;</span>
-            <img src="${src}" alt="${alt}">
-        `;
-        document.body.appendChild(lightbox);
-
-        lightbox.querySelector('.lightbox-close').addEventListener('click', () => {
-            lightbox.remove();
-        });
-
-        lightbox.addEventListener('click', (e) => {
-            if (e.target === lightbox) lightbox.remove();
-        });
-    }
+    // Init: แสดง slide แรก
+    showSlide(0);
 });
 
 /* ========================================

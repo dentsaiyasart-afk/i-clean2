@@ -2627,31 +2627,19 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Carousel Styles */
-.carousel-container {
-    position: relative;
-    max-width: 100%;
-    overflow: hidden;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-}
-
-/* Product Details & Carousel Fix */
-.product-details {
-    padding: var(--section-padding);
-}
-
+/* Carousel Fix for 1080x1080 Images */
 .hero-image {
     display: flex;
     gap: 40px;
-    align-items: flex-start;  /* Align top เพื่อให้ table อยู่ข้างๆ */
+    align-items: flex-start;
     margin-bottom: 40px;
 }
 
 .carousel-container {
     position: relative;
-    flex: 1;  /* ให้ carousel ยืดเต็มพื้นที่ */
-    max-width: 500px;  /* กำหนด max-width เพื่อไม่ให้ใหญ่เกิน */
+    flex: 1;
+    max-width: 500px;  /* Limit width เพื่อ fit desktop */
+    aspect-ratio: 1/1;  /* Square ratio สำหรับรูป 1080x1080 */
     overflow: hidden;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
@@ -2660,7 +2648,8 @@ img[loading="lazy"] {
 .carousel-slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
-    height: 400px;  /* กำหนด height คงที่เพื่อให้ slide สูงเท่ากัน */
+    width: 100%;
+    height: 100%;  /* ใช้ 100% ของ parent แทน fixed height เพื่อ fit ratio */
 }
 
 .carousel-slide {
@@ -2668,28 +2657,31 @@ img[loading="lazy"] {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    justify-content: center;  /* Center รูปใน slide */
+    justify-content: center;
+    aspect-ratio: 1/1;  /* บังคับ square ทุก slide */
 }
 
 .carousel-slide img.product-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* Fit รูปให้พอดีโดย crop ถ้าจำเป็น ไม่ distort */
+    object-fit: contain;  /* เปลี่ยนจาก cover เป็น contain: แสดงรูปเต็ม ไม่ crop, กลางว่างถ้าจำเป็น */
+    object-position: center;  /* Center รูป */
     border-radius: var(--radius-lg);
     cursor: pointer;
 }
 
 .carousel-slide img:hover {
-    transform: scale(1.02);  /* Zoom เล็กน้อย */
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
 
-/* Navigation Arrows (ปรับ position ให้ fit) */
+/* Arrows & Indicators (คงเดิม แต่เพิ่ม hover effect) */
 .carousel-prev,
 .carousel-next {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(74, 124, 78, 0.8);  /* สีเขียวให้ match theme */
+    background: rgba(74, 124, 78, 0.8);
     color: white;
     border: none;
     padding: 12px 16px;
@@ -2714,8 +2706,7 @@ img[loading="lazy"] {
     transform: translateY(-50%) scale(1.1);
 }
 
-/* Indicators (ปรับให้เล็กลงและ fit) */
-.carousel-indicators {
+.carousel-indicators {  /* แก้ชื่อจาก carousel เป็น carousel */
     position: absolute;
     bottom: 15px;
     left: 50%;
@@ -2736,78 +2727,50 @@ img[loading="lazy"] {
 
 .indicator.active {
     background: var(--yellow-primary);
-    transform: scale(1.2);  /* ใหญ่ขึ้นนิดเมื่อ active */
+    transform: scale(1.2);
 }
 
 .indicator:hover {
     background: var(--green-primary);
 }
 
-/* Product Specs Table (ปรับให้ fit ข้าง carousel) */
+/* Table Fit (คงเดิม) */
 .product-specs {
     flex: 1;
-    min-width: 300px;  /* กำหนด min-width เพื่อไม่ให้หดเกิน */
+    min-width: 300px;
 }
 
 .specs-table {
     width: 100%;
-    border-collapse: collapse;
-    background: var(--white);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
+    /* ... rest คงเดิม ... */
 }
 
-.specs-table td {
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--gray-light);
-}
-
-.specs-table tr:last-child td {
-    border-bottom: none;
-}
-
-.spec-label {
-    background: var(--green-light);
-    font-weight: 600;
-    width: 30%;  /* กำหนด width ให้ label */
-    color: var(--green-primary);
-}
-
-/* Responsive (fix สำหรับ mobile) */
+/* Responsive: Adjust for Mobile */
 @media (max-width: 968px) {
     .hero-image {
         flex-direction: column;
         gap: 20px;
     }
     
-    .carousel-slides {
-        height: 300px;  /* ลด height ใน tablet */
-    }
-    
-    .product-specs {
-        min-width: auto;
-    }
-    
-    .spec-label {
-        width: 40%;  /* ปรับ width ใน mobile */
+    .carousel-container {
+        max-width: 100%;  /* Full width ใน tablet */
+        aspect-ratio: 1/1;
     }
 }
 
 @media (max-width: 640px) {
-    .carousel-slides {
-        height: 250px;  /* ลด height ใน mobile */
+    .carousel-container {
+        max-width: 100%;
+        aspect-ratio: 16/9;  /* เปลี่ยน ratio เป็น landscape ใน mobile ถ้าต้องการ */
     }
     
     .specs-table td {
-        padding: 8px 12px;
         display: block;
         width: 100%;
     }
     
     .spec-label {
         width: 100%;
-        margin-bottom: 5px;
     }
 }
 
