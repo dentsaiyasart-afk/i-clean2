@@ -884,91 +884,51 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Simple Carousel JS (14 lines core + indicators)
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Carousel loading...');
-    
-    const slides = document.querySelectorAll('.carousel-slide');
-    const indicators = document.querySelectorAll('.indicator');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    const container = document.querySelector('.carousel-slides');
-    
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-    
-    if (totalSlides === 0) {
-        console.error('No slides found! Check HTML.');
-        return;
-    }
-    console.log(`Loaded: ${totalSlides} slides, ${indicators.length} indicators`);
-    
-    function showSlide(index) {
-        currentSlide = (index + totalSlides) % totalSlides;  // Wrap around safe
-        
-        // Force transform
-        container.style.transform = `translateX(${-currentSlide * 100}%)`;
-        console.log(`Moved to slide ${currentSlide}`);
-        
-        // Update classes
-        slides.forEach((slide, i) => {
-            slide.classList.toggle('active', i === currentSlide);
+    const slidesContainer = document.getElementById("slides-container");
+    const slide = document.querySelector(".slide");
+    const prevButton = document.getElementById("slide-arrow-prev");
+    const nextButton = document.getElementById("slide-arrow-next");
+    const totalSlides = document.querySelectorAll('.slide').length;  // 6
+
+    // Core: Arrows เลื่อนด้วย scrollLeft
+    if (nextButton && slide) {
+        nextButton.addEventListener("click", () => {
+            const slideWidth = slide.clientWidth;
+            slidesContainer.scrollLeft += slideWidth;
         });
-        indicators.forEach((ind, i) => {
+    }
+
+    if (prevButton && slide) {
+        prevButton.addEventListener("click", () => {
+            const slideWidth = slide.clientWidth;
+            slidesContainer.scrollLeft -= slideWidth;
+        });
+    }
+
+    // เพิ่ม Indicators (dots)
+    const indicatorsContainer = document.getElementById('carousel-indicators');
+    for (let i = 0; i < totalSlides; i++) {
+        const indicator = document.createElement('span');
+        indicator.classList.add('indicator');
+        if (i === 0) indicator.classList.add('active');
+        indicator.addEventListener('click', () => {
+            const slideWidth = slide.clientWidth;
+            slidesContainer.scrollLeft = i * slideWidth;
+        });
+        indicatorsContainer.appendChild(indicator);
+    }
+
+    // Update active dot เมื่อ scroll (detect current slide)
+    slidesContainer.addEventListener('scroll', () => {
+        const currentSlide = Math.round(slidesContainer.scrollLeft / slide.clientWidth);
+        document.querySelectorAll('.indicator').forEach((ind, i) => {
             ind.classList.toggle('active', i === currentSlide);
         });
-    }
-    
-    // Arrows
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            showSlide(currentSlide + 1);
-        });
-        console.log('Next OK');
-    } else {
-        console.error('Next button missing!');
-    }
-    
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            showSlide(currentSlide - 1);
-        });
-        console.log('Prev OK');
-    } else {
-        console.error('Prev button missing!');
-    }
-    
-    // Indicators
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            showSlide(index);
-            console.log(`Indicator ${index} clicked`);
-        });
     });
-    console.log('Indicators OK');
-    
-    // Lightbox
-    slides.forEach(slide => {
-        const img = slide.querySelector('img');
-        if (img) {
-            img.addEventListener('click', () => {
-                const lightbox = document.createElement('div');
-                lightbox.className = 'lightbox active';
-                lightbox.innerHTML = `
-                    <span class="lightbox-close">&times;</span>
-                    <img src="${img.src}" alt="${img.alt}">
-                `;
-                document.body.appendChild(lightbox);
-                lightbox.querySelector('.lightbox-close').addEventListener('click', () => lightbox.remove());
-                lightbox.addEventListener('click', (e) => {
-                    if (e.target === lightbox) lightbox.remove();
-                });
-            });
-        }
-    });
-    
-    // Start
-    showSlide(0);
-    console.log('Carousel ready!');
+
+    console.log('Carousel ready! Total slides:', totalSlides);  // Check Console
 });
 
 /* ========================================

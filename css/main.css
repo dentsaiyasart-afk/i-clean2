@@ -2627,7 +2627,7 @@ img[loading="lazy"] {
     color: var(--green-dark);
 }
 
-/* Carousel Final Fix */
+/* New Carousel: Simple Scroll-Based (Works 100%) */
 .hero-image {
     display: flex;
     gap: 40px;
@@ -2635,75 +2635,92 @@ img[loading="lazy"] {
     margin-bottom: 40px;
 }
 
-.carousel-container {
-    position: relative;
+.slider-wrapper {
     flex: 1;
     max-width: 450px;
-    aspect-ratio: 1/1;
+    position: relative;
     overflow: hidden;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-md);
+    height: 400px;  /* Fixed height สำหรับ square-ish fit */
 }
 
-.carousel-slides {
+.slides-container {
+    height: 100%;
+    width: 100%;
     display: flex;
-    transition: transform 0.5s ease-in-out !important;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;  /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar IE */
+}
+
+.slides-container::-webkit-scrollbar {
+    display: none;  /* Hide scrollbar Chrome/Safari */
+}
+
+.slide {
     width: 100%;
     height: 100%;
-}
-
-.carousel-slide {
-    min-width: 100%;
-    flex-shrink: 0;
+    flex: 1 0 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    aspect-ratio: 1/1;
 }
 
-.carousel-slide img.product-img {
+.slide img.product-img {
     width: 100%;
     height: 100%;
-    object-fit: contain;  /* รูป 1080x1080 fit เต็มโดยไม่ยืด */
+    object-fit: contain;  /* Fit 1080x1080 เต็มโดยไม่ยืด */
     object-position: center;
     border-radius: var(--radius-lg);
     cursor: pointer;
 }
 
-.carousel-slide img:hover {
+.slide img:hover {
     transform: scale(1.02);
     transition: transform 0.3s ease;
 }
 
 /* Arrows */
-.carousel-prev,
-.carousel-next {
+.slide-arrow {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(74, 124, 78, 0.8);
-    color: white;
+    display: flex;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 4rem;
+    background-color: var(--green-primary);  /* Match theme */
     border: none;
-    padding: 12px 16px;
+    width: 2rem;
+    font-size: 2rem;
+    padding: 0;
     cursor: pointer;
-    font-size: 20px;
-    z-index: 10;
-    transition: all 0.3s ease;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    color: white;
     border-radius: 50%;
+    z-index: 10;
 }
 
-.carousel-prev {
-    left: 10px;
+.slide-arrow:hover {
+    opacity: 1;
+    background-color: var(--green-dark);
 }
 
-.carousel-next {
-    right: 10px;
+#slide-arrow-prev {
+    left: 0;
+    padding-left: 0.25rem;
+    border-radius: 0 2rem 2rem 0;
 }
 
-.carousel-prev:hover,
-.carousel-next:hover {
-    background: var(--green-primary);
-    transform: translateY(-50%) scale(1.1);
+#slide-arrow-next {
+    right: 0;
+    padding-right: 0.25rem;
+    border-radius: 2rem 0 0 2rem;
 }
 
 /* Indicators */
@@ -2713,7 +2730,7 @@ img[loading="lazy"] {
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 6px;
+    gap: 8px;
     z-index: 10;
 }
 
@@ -2735,6 +2752,18 @@ img[loading="lazy"] {
     background: var(--green-primary);
 }
 
-/* Table & Responsive คงเดิม */
+/* Table & Responsive */
 .product-specs { flex: 1; min-width: 300px; }
-@media (max-width: 968px) { .hero-image { flex-direction: column; } .carousel-container { max-width: 100%; } }
+
+.specs-table td { padding: 12px 16px; border-bottom: 1px solid var(--gray-light); }
+.spec-label { background: var(--green-light); font-weight: 600; width: 30%; color: var(--green-primary); }
+
+@media (max-width: 968px) {
+    .hero-image { flex-direction: column; gap: 20px; }
+    .slider-wrapper { max-width: 100%; height: 300px; }
+}
+
+@media (max-width: 640px) {
+    .slider-wrapper { height: 250px; }
+    .spec-label { width: 100%; }
+}
