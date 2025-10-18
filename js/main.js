@@ -884,6 +884,67 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Carousel Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.carousel-slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const container = document.querySelector('.carousel-slides');
+    let currentSlide = 0;
+
+    // Function to show slide
+    function showSlide(index) {
+        if (index >= slides.length) currentSlide = 0;
+        if (index < 0) currentSlide = slides.length - 1;
+        
+        container.style.transform = `translateX(${-currentSlide * 100}%)`;
+        
+        // Update active classes
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(ind => ind.classList.remove('active'));
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+    }
+
+    // Next/Prev buttons
+    if (nextBtn) nextBtn.addEventListener('click', () => { currentSlide++; showSlide(currentSlide); });
+    if (prevBtn) prevBtn.addEventListener('click', () => { currentSlide--; showSlide(currentSlide); });
+
+    // Indicators click
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => { currentSlide = index; showSlide(currentSlide); });
+    });
+
+    // Auto-slide (optional, เลื่อนอัตโนมัติทุก 5 วินาที)
+    // setInterval(() => { currentSlide++; showSlide(currentSlide); }, 5000);
+
+    // Click on image to open lightbox (ขยายรูป)
+    slides.forEach(slide => {
+        const img = slide.querySelector('img');
+        img.addEventListener('click', () => openLightbox(img.src, img.alt));
+    });
+
+    // Lightbox functions
+    function openLightbox(src, alt) {
+        const lightbox = document.createElement('div');
+        lightbox.className = 'lightbox active';
+        lightbox.innerHTML = `
+            <span class="lightbox-close">&times;</span>
+            <img src="${src}" alt="${alt}">
+        `;
+        document.body.appendChild(lightbox);
+
+        lightbox.querySelector('.lightbox-close').addEventListener('click', () => {
+            lightbox.remove();
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) lightbox.remove();
+        });
+    }
+});
+
 /* ========================================
    SCROLL PROGRESS INDICATOR (OPTIONAL)
    ======================================== */
