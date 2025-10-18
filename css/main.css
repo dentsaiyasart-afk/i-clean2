@@ -1673,7 +1673,7 @@ a:hover {
    ======================================== */
 
 .wholesale {
-    background: linear-gradient(135deg, var(--yellow-light) 0%, #ffffff 100%);
+    background: linear-gradient(#ffffff 100%);
 }
 
 .wholesale-header {
