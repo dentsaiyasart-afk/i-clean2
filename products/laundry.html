@@ -52,6 +52,10 @@
     
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../css/main.css">
+
+    <!-- Swiper CDN (ย้ายมาที่นี่) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     
     <!-- Structured Data - Product Schema -->
     <script type="application/ld+json">
@@ -432,9 +436,25 @@
     <section id="product" class="product-details">
         <div class="container">
             <h2 class="section-title">📦 รายละเอียดผลิตภัณฑ์</h2>
-            <div class="product-content">
-                <div class="product-image-section">
-                    <img src="../img/41.png" alt="i-Clean Laundry Products" class="product-detail-img">
+            <div class="hero-image">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="../img/35.png" alt="i-Clean Ld Repellent 1" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/37.png" alt="i-Clean ld 2" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/39.png" alt="i-Clean ld 3" class="product-img">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="../img/41.png" alt="i-Clean ld 4" class="product-img">
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-pagination"></div>
                 </div>
                 <div class="product-specs">
                     <table class="specs-table">
